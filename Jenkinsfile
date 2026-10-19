@@ -8,6 +8,8 @@ pipeline {
         DEPLOYMENT_NAME = 'java'
         CONTAINER_NAME = 'java'
         NAMESPACE = 'default'
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
+    	PATH = "/usr/local/bin:${env.PATH}"
     }
 
     stages {
