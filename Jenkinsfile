@@ -55,9 +55,12 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                    kubectl apply -f k8s/
-                    kubectl rollout status deployment/${DEPLOYMENT_NAME} \
-                      -n ${NAMESPACE} --timeout=180s
+                    kubectl apply -f mariadb-pvc.yaml
+   		    kubectl apply -f config.yaml
+    		    kubectl apply -f secret.yaml
+    		    kubectl apply -f mariadeploy.yaml
+                    kubectl apply -f javadeploy.yaml
+                    kubectl apply -f ingress.yaml
                 '''
             }
         }
