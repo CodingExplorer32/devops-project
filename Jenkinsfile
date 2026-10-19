@@ -54,19 +54,22 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                    kubectl apply -f mariadb-pvc.yaml
-   		    kubectl apply -f config.yaml
-    		    kubectl apply -f secret.yaml
-    		    kubectl apply -f mariadeploy.yaml
-                    kubectl apply -f javadeploy.yaml
-                    kubectl apply -f ingress.yaml
-                '''
-            }
-        }
+stage('Deploy to Kubernetes') {
+    steps {
+        dir(env.WORKSPACE) {
+            sh '''
+                pwd
+                ls -l *.yaml
 
+                kubectl apply -f mariadb-pvc.yaml
+                kubectl apply -f config.yaml
+                kubectl apply -f mariadeploy.yaml
+                kubectl apply -f javadeploy.yaml
+                kubectl apply -f ingress.yaml
+            '''
+        }
+    }
+}
         stage('Verify Deployment') {
             steps {
                 sh '''
