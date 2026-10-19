@@ -1,0 +1,32 @@
+services:
+  java:
+    image: bussiness-app:1.0
+    ports:
+      - "80:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://sql:3306/businessdb
+      SPRING_DATASOURCE_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - java
+    depends_on:
+      - sql
+
+  sql:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_DATABASE: businessdb
+    networks:
+      - java
+    volumes:
+      - shared-volume:/var/lib/mysql
+
+networks:
+  java:
+    driver: bridge
+
+volumes:
+  shared-volume:
+

@@ -1,0 +1,17 @@
+ target/
+.idea/
+.vscode/
+*.iml
+.env
+*.log
+
+# Maven build output
+target/
+
+# Local environment variables
+.env
+.env.*
+!.env.example
+
+# Kubernetes secrets
+secret.yaml
